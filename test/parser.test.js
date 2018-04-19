@@ -1,25 +1,21 @@
-var util = require('sys'),
-    Events = require('events').EventEmitter,
-    nodeunit  = require('nodeunit'),
-    testCase  = require('nodeunit').testCase,
-    StompFrame = require('../lib/frame').StompFrame;
+const {EventEmitter} = require('events')
+const nodeunit = require('nodeunit')
+const {testCase} = nodeunit
 
 // Mock net object so we never try to send any real data
-var connectionObserver = new Events();
-connectionObserver.writeBuffer = [];
-connectionObserver.write = function(data) {
-    this.writeBuffer.push(data);
-};
+var connectionObserver = new EventEmitter()
+connectionObserver.writeBuffer = []
+connectionObserver.write = function (data) {
+  this.writeBuffer.push(data)
+}
 
 module.exports = testCase({
-
-  setUp: function(callback) {
-    callback();
+  setUp: function (callback) {
+    callback()
   },
 
-  tearDown: function(callback) {
-    connectionObserver.writeBuffer = [];
-    callback();
+  tearDown: function (callback) {
+    connectionObserver.writeBuffer = []
+    callback()
   }
-
-});
+})
